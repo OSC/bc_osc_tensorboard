@@ -1,0 +1,8 @@
+---
+name: TensorBoard
+category: Interactive Apps
+subcategory: Servers
+role: batch_connect
+description: |
+  This app launches TensorBoard, a popular python gui for viewing
+  the machine learning output of TensorFlow.

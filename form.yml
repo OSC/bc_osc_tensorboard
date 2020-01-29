@@ -1,0 +1,16 @@
+cluster: "owens"
+title: "Tensor Board"
+
+form:
+  - logdir
+  - bc_num_hours
+  - bc_account
+
+attributes:
+  bc_account:
+    label: "Project"
+    help: "You can leave this blank if **not** in multiple projects."
+  logdir:
+    label: 'Log Directory'
+    data-filepicker: true
+    requried: true

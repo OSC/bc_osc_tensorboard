@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+module load xalt/latest python/3.6-conda5.2
+
+tensorboard \
+  --port "$port" \
+  --host 0.0.0.0 \
+  --logdir <%= context.logdir %>
