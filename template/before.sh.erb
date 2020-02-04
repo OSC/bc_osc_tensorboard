@@ -3,9 +3,7 @@
 # Export the module function if it exists
 [[ $(type -t module) == "function" ]] && export -f module
 
-# Find available port to run server on
-port=$(find_port ${host})
 
-# Define a password
-# FIXME: Not yet used, just here to create a valid connection.yml file
-password="$(create_passwd 16)"
+export port=$(find_port ${host})
+export password="$(create_passwd 32)"
+export _ood_token_<%= session.id.gsub("-","_") %>=${password}
