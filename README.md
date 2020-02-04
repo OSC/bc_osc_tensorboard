@@ -15,11 +15,16 @@ OnDemand node):
 - [Lmod] 6.0.1+ or any other `module purge` and `module load <modules>` based
   CLI used to load appropriate environments within the batch job before
   launching the Tensorboard server.
-- [TensorBoard] 2.1.0 (earlier versions are untested but may work for
-  you)
+- [TensorBoard] 2.1.0+ (earlier versions are untested but may work for you)
+- [Singularity] 3.5.2+ (earlier versions are untested but may work for you)
+- [slirp4netns] 0.4.0+ (earlier versions are untested but may work for you)
+- [subuids] need to be enabled for users.
 
 [TensorBoard]: https://www.tensorflow.org/tensorboard
 [Lmod]: https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+[Singularity]: https://sylabs.io/singularity/
+[slirp4netns]: https://github.com/rootless-containers/slirp4netns
+[subuids]: http://man7.org/linux/man-pages/man5/subuid.5.html
 
 ## Install
 
@@ -51,8 +56,15 @@ Again, you do not need to restart the app as it isn't a Passenger app.
 
 ## Contributing
 
-1. Fork it ( https://github.com/OSC/bc_osc_tensorboard/fork )
+1. Fork it ( https://github.com/OSC/bc\_osc\_tensorboard/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## Software used
+
+### authrevproxy
+[authrevproxy.py](/template/bin/authrevproxy.py) originally from [stanford-rc/sh\_ood-apps/sh\_tensorboard](https://github.com/stanford-rc/sh_ood-apps/blob/960986941a7ff740a5731e2fc025a95e8e2f7f28/sh_tensorboard/template/bin/authrevproxy.py).
+
+[License](https://github.com/stanford-rc/sh_ood-apps/blob/bff2d7ad21541c0bf68d7412b2e6cdbd282eacda/LICENSE) added in licenses folder.
