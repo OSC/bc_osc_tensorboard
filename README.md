@@ -1,4 +1,4 @@
-# Batch Connect - OSC Jupyter
+# Batch Connect - OSC Tensorboard
 
 ![GitHub Release](https://img.shields.io/github/release/osc/bc_osc_tensorboard.svg)
 [![GitHub License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
