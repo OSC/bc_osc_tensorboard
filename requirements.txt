@@ -3,3 +3,5 @@
 # Note that specific versions may be installed:
 #  version_sensitive_depenency==1.2.3
 tensorboard==2.1.0
+twisted==19.10.0
+service_identity

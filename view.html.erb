@@ -1,5 +1,24 @@
-<form action="/rnode/<%= host %>/<%= port %>/" method="get" target="_blank">
+<%-
+  # generate form id, based on host and port
+  form_id = Digest::SHA1.hexdigest("--" + host.to_s + "--" + port.to_s + "--")
+-%>
+
+<script>
+function setCookie() {
+    var panelid = document.getElementById("<%= form_id %>").closest(".panel").id;
+    var cvalue = "<%= password %>";
+    var cname = "_ood_token_" + panelid;
+    var exdays = 7;
+
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+</script>
+
+<form id="<%= form_id %>" action="/rnode/<%= host %>/<%= port %>/" method="post" target="_blank" onsubmit="setCookie()">
   <button class="btn btn-primary" type="submit">
-    <i class="fa fa-cogs"></i> Connect to TensorBoard
+    <i class="fa fa-cogs"></i> Connect to Tensorboard
   </button>
 </form>

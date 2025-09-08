@@ -2,7 +2,37 @@
 
 module load xalt/latest python/3.6-conda5.2
 
-tensorboard \
-  --port "$port" \
-  --host 0.0.0.0 \
-  --logdir <%= context.logdir %>
+export LOG_DIR="<%= context.logdir %>"
+export UNSHARE_PID_FILE="<%= session.staged_root %>/pid"
+
+# slirp4netns complains about log socket names, so can't use session.staged_root
+export SLIRP_SOCKET="$(mktemp)"
+
+echo "starting tensorboard"
+# unshare in a new network so that only the proxy (on port 80) is accessable
+unshare -nr bin/tensorboard.sh > tensorboard.log 2>&1 &
+UNSHARE_PID=$!
+
+# give the tensorboard.sh a second or two to boot up
+sleep 1
+
+echo "starting network interface"
+slirp4netns \
+  --configure \
+  --api-socket "$SLIRP_SOCKET" \
+  $UNSHARE_PID \
+  tap0 > network.log 2>&1 &
+
+
+# now given network interface a second to boot
+sleep 2
+
+# now we've to to add the routing rule to the network
+echo "configuring network interface to use port $port"
+SLIRP_CFG="{\"execute\": \"add_hostfwd\", \"arguments\": {\"proto\": \"tcp\", \"host_addr\": \"0.0.0.0\", \"host_port\": $port, \"guest_addr\": \"10.0.2.100\", \"guest_port\": 80}}"
+echo -n "$SLIRP_CFG" | nc -U "$SLIRP_SOCKET"
+
+echo "" # output from nc ^ doesn't end in a newline
+
+# tail the unshared environment just for something to hang on to
+tail --pid $UNSHARE_PID -f /proc/$UNSHARE_PID/fd/1
